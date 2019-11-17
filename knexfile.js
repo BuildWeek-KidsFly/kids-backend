@@ -6,13 +6,13 @@ module.exports = {
     client: 'sqlite3',
     useNullAsDefault: true,
     connection: {
-      filename: './database/kidsfly.db3'
+      filename: './data/kidsfly.db3'
     },
     migrations: {
-      directory: './database/migrations'
+      directory: './data/migrations'
     },
     seeds: {
-      directory: './database/seeds'
+      directory: './data/seeds'
     }
   },
 
