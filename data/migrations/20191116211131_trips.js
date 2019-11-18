@@ -11,8 +11,18 @@ exports.up = function(knex) {
     trips.string("special", 255);
 
     // foreign keys
-    trips.integer("traveler_id", 255).notNullable();
-    trips.integer("connection_id", 255).notNullable();
+    trips
+      .integer("traveler_id", 255)
+      .unsigned()
+      .references("id")
+      .inTable("users")
+      .notNullable();
+    trips
+      .integer("connection_id", 255)
+      .unsigned()
+      .references("id")
+      .inTable("connections")
+      .notNullable();
   });
 };
 
