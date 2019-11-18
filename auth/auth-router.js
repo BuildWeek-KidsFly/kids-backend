@@ -2,12 +2,15 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 
 const Users = require("../data/users/users-model");
+
+// helpers and middleware
+const { getJwtToken } = require("./auth-helpers");
 const {
-  getJwtToken,
   verifyRegister,
   checkLoginCreds
-} = require("./auth-helpers");
+} = require("./authenticate-middleware");
 
+// endpoints
 router.get("/", (req, res) => {
   res.status(200).json({ api: "up" });
 });
