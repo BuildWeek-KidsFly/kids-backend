@@ -24,14 +24,22 @@ router.put("/:id/trips/:tripId", authMiddleware, (req, res) => {
   const changes = req.body;
   Users.updateTrip(tripId, id, changes)
     .then(updated => {
-      res
-        .status(201)
-        .json({
-          message: "Trip successfully updated",
-          updated: !!Number(updated)
-        });
+      res.status(201).json({
+        message: "Trip successfully updated",
+        updated: !!Number(updated)
+      });
     })
     .catch(error => res.status(500).json({ error: "internal server error" }));
+});
+
+router.post("/:id/trips", authMiddleware, (req, res) => {
+  const { id } = req.params;
+  const trip = req.body;
+  console.log("REQ BODY", trip);
+  Users.addTrip(id, trip).then(trip => {
+    res.status(201).json({ message: "trip created", trip });
+  });
+  // .catch(error => res.status(500).json({ error: "internal server error" }));
 });
 
 module.exports = router;

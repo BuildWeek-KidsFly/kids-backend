@@ -1,12 +1,15 @@
 const db = require("../dbconfig");
+const assignConnection = require("./users-helpers");
 
 module.exports = {
   getUsers,
   add,
   getUsersBy,
   getUserById,
+  addTrip,
   getTrips,
-  updateTrip
+  updateTrip,
+  removeTrip
 };
 
 function getUsers() {
@@ -45,6 +48,17 @@ function updateTrip(tripId, userId, changes) {
   return db("trips")
     .update(changes)
     .where({ id: tripId, traveler_id: userId });
+}
+
+async function addTrip(userId, trip) {
+  const dbConnections = await db("connections").select("*");
+  const randomized = await assignConnection(dbConnections);
+  console.log("RANDOMIZED", randomized);
+  return db("trips").insert({
+    connection_id: randomized.id,
+    traveler_id: userId,
+    ...trip
+  });
 }
 
 function removeTrip(id, tripId) {
