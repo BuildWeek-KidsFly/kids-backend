@@ -22,11 +22,12 @@ function getUserById(id) {
     .first();
 }
 
-function getTrips(user) {
-  const { id } = user.id;
+function getTrips(id) {
   return db("users")
     .select("*")
-    .from("trips");
+    .from("trips")
+    .where({ id })
+    .first();
 }
 
 async function add(user) {
