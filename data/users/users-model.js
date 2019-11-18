@@ -5,7 +5,8 @@ module.exports = {
   add,
   getUsersBy,
   getUserById,
-  getTrips
+  getTrips,
+  updateTrip
 };
 
 function getUsers() {
@@ -23,11 +24,33 @@ function getUserById(id) {
 }
 
 function getTrips(id) {
-  return db("users")
-    .select("*")
-    .from("trips")
-    .where({ id })
-    .first();
+  return db("trips")
+    .select(
+      "trips.id",
+      "airport_name",
+      "airline",
+      "flight_number",
+      "departure_time",
+      "number_of_items",
+      "number_of_children",
+      "special"
+    )
+    .join("users", function() {
+      this.on("traveler_id", "=", "users.id");
+    })
+    .where({ traveler_id: id });
+}
+
+function updateTrip(tripId, userId, changes) {
+  return db("trips")
+    .update(changes)
+    .where({ id: tripId, traveler_id: userId });
+}
+
+function removeTrip(id, tripId) {
+  return db("trips")
+    .where({ traveler_id: id, id: tripId })
+    .del();
 }
 
 async function add(user) {

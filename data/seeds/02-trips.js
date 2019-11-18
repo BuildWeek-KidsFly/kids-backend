@@ -1,5 +1,5 @@
 exports.seed = function(knex) {
-  return knex("table_name").insert([
+  return knex("trips").insert([
     {
       airport_name: "Los Angeles Airport",
       airline: "American Airlines",
@@ -9,7 +9,7 @@ exports.seed = function(knex) {
       number_of_children: 14,
       special: "I want you to be dressed only in Gucci when I arrive",
       traveler_id: 2,
-      contractor_id: 3,
+      connection_id: 3,
       completed: false
     },
     {
@@ -21,7 +21,7 @@ exports.seed = function(knex) {
       number_of_children: 3,
       special: "bring me a signed viper CD",
       traveler_id: 1,
-      contractor_id: 2,
+      connection_id: 2,
       completed: false
     },
     {
@@ -33,7 +33,7 @@ exports.seed = function(knex) {
       number_of_children: 0,
       special: "have 3 big ol doinks ready for me",
       traveler_id: 3,
-      contractor_id: 1,
+      connection_id: 1,
       completed: false
     },
     {
@@ -45,7 +45,7 @@ exports.seed = function(knex) {
       number_of_children: 0,
       special: "have 12 big ol doinks ready for me",
       traveler_id: 3,
-      contractor_id: 1,
+      connection_id: 1,
       completed: false
     }
   ]);

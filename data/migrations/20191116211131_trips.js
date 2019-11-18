@@ -9,6 +9,10 @@ exports.up = function(knex) {
     trips.integer("number_of_items", 2).notNullable();
     trips.integer("number_of_children", 3).notNullable();
     trips.string("special", 255);
+    trips
+      .boolean("completed")
+      .defaultTo(false)
+      .notNullable();
 
     // foreign keys
     trips
