@@ -42,4 +42,11 @@ router.post("/:id/trips", authMiddleware, (req, res) => {
   // .catch(error => res.status(500).json({ error: "internal server error" }));
 });
 
+router.delete("/:id/trips/:tripId", (req, res) => {
+  const { id, tripId } = req.params;
+  Users.removeTrip(id, tripId)
+    .then(deleted => res.status(200).json({ message: "trip deleted" }))
+    .catch(error => res.status(500).json({ error: "internal server error" }));
+});
+
 module.exports = router;

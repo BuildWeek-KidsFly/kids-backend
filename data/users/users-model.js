@@ -53,7 +53,6 @@ function updateTrip(tripId, userId, changes) {
 async function addTrip(userId, trip) {
   const dbConnections = await db("connections").select("*");
   const randomized = await assignConnection(dbConnections);
-  console.log("RANDOMIZED", randomized);
   return db("trips").insert({
     connection_id: randomized.id,
     traveler_id: userId,
