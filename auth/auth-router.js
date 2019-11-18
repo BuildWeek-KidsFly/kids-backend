@@ -2,13 +2,20 @@ const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 
 const Users = require("../data/users/users-model");
-const getJwtToken = require("./auth-helpers");
 
+// helpers and middleware
+const { getJwtToken } = require("./auth-helpers");
+const {
+  verifyRegister,
+  checkLoginCreds
+} = require("./authenticate-middleware");
+
+// endpoints
 router.get("/", (req, res) => {
   res.status(200).json({ api: "up" });
 });
 
-router.post("/register", (req, res) => {
+router.post("/register", verifyRegister, (req, res) => {
   const user = req.body;
   const hash = bcrypt.hashSync(user.password, 12);
   user.password = hash;
@@ -23,7 +30,7 @@ router.post("/register", (req, res) => {
     );
 });
 
-router.post("/login", (req, res) => {
+router.post("/login", checkLoginCreds, (req, res) => {
   const { email, password } = req.body;
 
   Users.getUsersBy({ email })
