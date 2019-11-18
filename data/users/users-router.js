@@ -15,8 +15,9 @@ router.get("/", authMiddleware, (req, res) => {
 
 router.get("/:id/trips", authMiddleware, (req, res) => {
   const { id } = req.params;
-  Users.getTrips(id).then(trip => res.status(200).json(trip));
-  // .catch(error => res.status(500).json({ error: "internal server error" }));
+  Users.getTrips(id)
+    .then(trip => res.status(200).json(trip))
+    .catch(error => res.status(500).json({ error: "internal server error" }));
 });
 
 router.put("/:id/trips/:tripId", authMiddleware, (req, res) => {
@@ -36,13 +37,14 @@ router.post("/:id/trips", authMiddleware, (req, res) => {
   const { id } = req.params;
   const trip = req.body;
   console.log("REQ BODY", trip);
-  Users.addTrip(id, trip).then(trip => {
-    res.status(201).json({ message: "trip created", trip });
-  });
-  // .catch(error => res.status(500).json({ error: "internal server error" }));
+  Users.addTrip(id, trip)
+    .then(trip => {
+      res.status(201).json({ message: "trip created", trip });
+    })
+    .catch(error => res.status(500).json({ error: "internal server error" }));
 });
 
-router.delete("/:id/trips/:tripId", (req, res) => {
+router.delete("/:id/trips/:tripId", authMiddleware, (req, res) => {
   const { id, tripId } = req.params;
   Users.removeTrip(id, tripId)
     .then(deleted => res.status(200).json({ message: "trip deleted" }))

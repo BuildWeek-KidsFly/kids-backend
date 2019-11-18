@@ -54,3 +54,9 @@ Traveler should have a way to notify their KidsFlyConnection that they are 5 min
 
 - cannot sign up as admin
 - has complete CRUD capabilities
+
+# To Do
+
+- endpoint to display trips for connections
+- postgres
+- deploy to heroku
