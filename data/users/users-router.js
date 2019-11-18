@@ -39,7 +39,7 @@ router.post("/:id/trips", authMiddleware, (req, res) => {
   console.log("REQ BODY", trip);
   Users.addTrip(id, trip)
     .then(trip => {
-      res.status(201).json({ message: "trip created", trip });
+      res.status(201).json({ message: "trip created" });
     })
     .catch(error => res.status(500).json({ error: "internal server error" }));
 });
