@@ -71,14 +71,14 @@
 
     [
         {
-        "id": 1, // this is the trip id, not the user id
-        "airport_name": "Los Angeles International Airport",
-        "airline": "American Airlines",
-        "flight_number": "7658",
-        "departure_time": "8:50pm",
-        "number_of_items": 5,
-        "number_of_children": 14,
-        "special": "I want you to be dressed only in Gucci when I arrive"
+            "id": 1, // this is the trip id, not the user id
+            "airport_name": "Los Angeles International Airport",
+            "airline": "American Airlines",
+            "flight_number": "7658",
+            "departure_time": "8:50pm",
+            "number_of_items": 5,
+            "number_of_children": 14,
+            "special": "I want you to be dressed only in Gucci when I arrive"
         }
     ]
 
@@ -101,9 +101,9 @@
 
 #### Returns:
 
-        {
+    {
         "message": "trip created"
-        }
+    }
 
 ## **PUT** /api/users/:id/trips/:tripId
 
@@ -127,4 +127,16 @@
     {
         "message": "Trip successfully updated",
         "updated": true
+    }
+
+# Connections information (protected) endpoints:
+
+## **GET** /api/connections
+
+#### Gets all KidsFlyConnections registered in the database
+
+#### Expects headers:
+
+    {
+        "authorization": eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTc0MTA2MjAxLCJleHAiOjE1NzQxOTI2MDF9.2e86pVoODyESq7hq-rQgBmh04ms64fdcbuK5PJxQ2ms
     }
