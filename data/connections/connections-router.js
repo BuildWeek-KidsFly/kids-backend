@@ -21,11 +21,4 @@ router.get("/:id", (req, res) => {
     .catch(error => res.status(500).json({ error: "internal server error" }));
 });
 
-// router.post("/connections/register", (req, res) => {
-//   const connection = req.body;
-//   return addConnection(connection)
-//     .then(connection => res.status(200).json({}))
-//     .catch(error => res.status(500).json({ error: "internal server error" }));
-// });
-
 module.exports = router;

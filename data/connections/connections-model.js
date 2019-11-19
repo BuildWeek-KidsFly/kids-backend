@@ -10,7 +10,7 @@ module.exports = {
 
 async function addConnection(connection) {
   const [id] = await db("connections").insert(connection, "id");
-  return getUserById(id);
+  return getConnectionById(id);
 }
 
 function getConnectionById(id) {
