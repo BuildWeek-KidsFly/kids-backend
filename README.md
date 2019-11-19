@@ -55,6 +55,16 @@
         "authorization": eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTc0MTA2MjAxLCJleHAiOjE1NzQxOTI2MDF9.2e86pVoODyESq7hq-rQgBmh04ms64fdcbuK5PJxQ2ms
     }
 
+## **PUT** /api/users/:id
+
+#### Update user information (these fields are required to create a trip)
+
+    {
+        "name": "riff raff",
+        "address": "777 pink panther lane",
+        "phone": "777-777-7777"
+    }
+
 ## **GET** /api/users/:id/trips
 
 #### Returns (all trips assigned to this user):
