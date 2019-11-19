@@ -9,11 +9,12 @@ module.exports = {
   addTrip,
   getTrips,
   updateTrip,
+  updateUser,
   removeTrip
 };
 
 function getUsers() {
-  return db("users").select("id", "email");
+  return db("users").select("id", "email", "name", "address", "phone");
 }
 
 function getUsersBy(filter) {
@@ -48,6 +49,12 @@ function updateTrip(tripId, userId, changes) {
   return db("trips")
     .update(changes)
     .where({ id: tripId, traveler_id: userId });
+}
+
+function updateUser(id, changes) {
+  return db("users")
+    .update(changes)
+    .where({ id });
 }
 
 async function addTrip(userId, trip) {

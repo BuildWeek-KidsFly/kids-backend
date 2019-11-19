@@ -55,7 +55,7 @@
         "authorization": eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTc0MTA2MjAxLCJleHAiOjE1NzQxOTI2MDF9.2e86pVoODyESq7hq-rQgBmh04ms64fdcbuK5PJxQ2ms
     }
 
-## GET /api/users/:id/trips
+## **GET** /api/users/:id/trips
 
 #### Returns (all trips assigned to this user):
 
@@ -86,7 +86,7 @@
         "departure_time": "8:50pm",
         "number_of_items": 5,
         "number_of_children": 14,
-        "special": "I want you to be dressed only in Gucci when I arrive"
+        "special": "I want you to be dressed only in Gucci when I arrive" // OPTIONAL
     }
 
 #### Returns:
@@ -109,7 +109,7 @@
         "departure_time": "8:50pm",
         "number_of_items": 5,
         "number_of_children": 14,
-        "special": "I want you to be dressed only in Gucci when I arrive"
+        "special": "I want you to be dressed only in Gucci when I arrive" // OPTIONAL
     }
 
 #### Returns:
