@@ -1,10 +1,29 @@
 const db = require("../dbconfig");
 
 module.exports = {
-  getPassengers
+  addConnection,
+  getConnectionById,
+  getConnectionsBy,
+  getPassengers,
+  getAllConnections
 };
 
-function getPassengers() {
+async function addConnection(connection) {
+  const [id] = await db("connections").insert(connection, "id");
+  return getConnectionById(id);
+}
+
+function getConnectionById(id) {
+  return db("connections")
+    .where({ id })
+    .first();
+}
+
+function getConnectionsBy(filter) {
+  return db("connections").where(filter);
+}
+
+function getPassengers(id) {
   return db("trips")
     .select(
       "trips.id",
@@ -14,10 +33,15 @@ function getPassengers() {
       "departure_time",
       "number_of_items",
       "number_of_children",
-      "special"
+      "special",
+      "completed"
     )
-    .join("users", function() {
+    .join("connections", function() {
       this.on("connection_id", "=", "connections.id");
     })
     .where({ connection_id: id });
+}
+
+function getAllConnections() {
+  return db("connections").select("id", "email", "home_airport");
 }

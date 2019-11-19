@@ -8,9 +8,7 @@ const Users = require("./users-model");
 router.get("/", authMiddleware, (req, res) => {
   Users.getUsers()
     .then(users => res.status(200).json(users))
-    .catch(error =>
-      res.status(500).json({ error: "internal error getting users" })
-    );
+    .catch(error => res.status(500).json({ error: "internal server error" }));
 });
 
 router.get("/:id/trips", authMiddleware, (req, res) => {
@@ -33,15 +31,31 @@ router.put("/:id/trips/:tripId", authMiddleware, (req, res) => {
     .catch(error => res.status(500).json({ error: "internal server error" }));
 });
 
-router.post("/:id/trips", authMiddleware, (req, res) => {
+router.put("/:id", authMiddleware, (req, res) => {
+  const user = req.body;
+  const { id } = req.params;
+  return Users.updateUser(id, user)
+    .then(changed => res.status(201).json({ message: "user updated", user }))
+    .catch(error => res.status(500).json({ error: "internal server error" }));
+});
+
+router.post("/:id/trips", authMiddleware, async (req, res) => {
   const { id } = req.params;
   const trip = req.body;
-  console.log("REQ BODY", trip);
-  Users.addTrip(id, trip)
-    .then(trip => {
-      res.status(201).json({ message: "trip created", trip });
-    })
-    .catch(error => res.status(500).json({ error: "internal server error" }));
+  const checkReqInfo = await Users.getUserById(id);
+
+  !checkReqInfo.name || !checkReqInfo.address || !checkReqInfo.phone
+    ? res.status(403).json({
+        message:
+          "please add your full name, address, and phone number before creating a trip"
+      })
+    : Users.addTrip(id, trip)
+        .then(trip => {
+          res.status(201).json({ message: "trip created" });
+        })
+        .catch(error =>
+          res.status(500).json({ error: "internal server error" })
+        );
 });
 
 router.delete("/:id/trips/:tripId", authMiddleware, (req, res) => {
