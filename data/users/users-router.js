@@ -11,6 +11,13 @@ router.get("/", authMiddleware, (req, res) => {
     .catch(error => res.status(500).json({ error: "internal server error" }));
 });
 
+router.get("/:id", authMiddleware, (req, res) => {
+  const { id } = req.params;
+  Users.getUserById(id)
+    .then(user => res.status(200).json(user))
+    .catch(error => res.status(500).json({ error: "internal server error" }));
+});
+
 router.get("/:id/trips", authMiddleware, (req, res) => {
   const { id } = req.params;
   Users.getTrips(id)
