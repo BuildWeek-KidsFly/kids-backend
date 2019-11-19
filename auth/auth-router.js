@@ -50,4 +50,14 @@ router.post("/login", checkLoginCreds, (req, res) => {
     .catch(error => res.status(500).json({ error: "internal server error" }));
 });
 
+router.post("/connections/register", (req, res) => {
+  const connection = req.body;
+  const hash = bcrypt.hashSync(connection.password, 12);
+  connection.password = hash;
+
+  return addConnection(connection)
+    .then(connection => res.status(200).json({ id, email, home_airport }))
+    .catch(error => res.status(500).json({ error: "internal server error" }));
+});
+
 module.exports = router;

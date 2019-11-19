@@ -8,9 +8,7 @@ const Users = require("./users-model");
 router.get("/", authMiddleware, (req, res) => {
   Users.getUsers()
     .then(users => res.status(200).json(users))
-    .catch(error =>
-      res.status(500).json({ error: "internal error getting users" })
-    );
+    .catch(error => res.status(500).json({ error: "internal server error" }));
 });
 
 router.get("/:id/trips", authMiddleware, (req, res) => {
