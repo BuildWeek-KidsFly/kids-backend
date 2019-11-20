@@ -7,7 +7,7 @@ exports.up = function(knex) {
       .notNullable()
       .unique();
     connections.string("password", 128).notNullable();
-    connections.string("home_airport", 4).notNullable();
+    connections.string("home_airport", 4);
   });
 };
 

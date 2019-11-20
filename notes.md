@@ -57,6 +57,8 @@ Traveler should have a way to notify their KidsFlyConnection that they are 5 min
 
 # To Do
 
-- endpoint to display trips for connections
+- update home airport to be nullable, not required on signup
+- update docs
+- testing
+
 - postgres
-- deploy to heroku

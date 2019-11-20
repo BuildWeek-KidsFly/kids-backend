@@ -1,5 +1,5 @@
 const db = require("../dbconfig");
-const assignConnection = require("./users-helpers");
+const { assignConnection } = require("./users-helpers");
 
 module.exports = {
   getUsers,

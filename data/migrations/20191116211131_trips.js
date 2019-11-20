@@ -21,7 +21,6 @@ exports.up = function(knex) {
       .references("id")
       .inTable("users")
       .notNullable()
-      .onUpdate("CASCADE")
       .onDelete("CASCADE");
     trips
       .integer("connection_id", 255)
@@ -29,7 +28,6 @@ exports.up = function(knex) {
       .references("id")
       .inTable("connections")
       .notNullable()
-      .onUpdate("CASCADE")
       .onDelete("CASCADE");
   });
 };

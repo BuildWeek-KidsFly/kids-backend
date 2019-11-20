@@ -51,10 +51,13 @@ router.post("/:id/trips", authMiddleware, async (req, res) => {
   const trip = req.body;
   const checkReqInfo = await Users.getUserById(id);
 
-  !checkReqInfo.name || !checkReqInfo.address || !checkReqInfo.phone
+  !checkReqInfo.name ||
+  !checkReqInfo.address ||
+  !checkReqInfo.phone ||
+  !checkReqInfo.home_airport
     ? res.status(403).json({
         message:
-          "please add your full name, address, and phone number before creating a trip"
+          "please add your full name, address, home airport code, and phone number before creating a trip"
       })
     : Users.addTrip(id, trip)
         .then(trip => {
