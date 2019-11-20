@@ -2,7 +2,8 @@ const jwt = require("jsonwebtoken");
 const db = require("../data/dbconfig");
 
 module.exports = {
-  getJwtToken
+  getJwtToken,
+  checkExisting
 };
 
 function getJwtToken(id) {
