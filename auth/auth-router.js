@@ -10,21 +10,22 @@ const {
   verifyRegister,
   checkLoginCreds
 } = require("./authenticate-middleware");
+const checkExisting = require("./check-existing");
 
 // endpoints
 router.get("/", (req, res) => {
   res.status(200).json({ api: "up" });
 });
 
-router.post("/register", verifyRegister, (req, res) => {
+router.post("/register", checkExisting, verifyRegister, (req, res) => {
   const user = req.body;
   const hash = bcrypt.hashSync(user.password, 12);
   user.password = hash;
 
   Users.add(user)
     .then(user => {
-      const { id, email, home_airport } = user;
-      res.status(200).json({ id, email, home_airport });
+      const { id, email } = user;
+      res.status(200).json({ id, email });
     })
     .catch(error =>
       res.status(500).json({ error: "internal error registering user" })

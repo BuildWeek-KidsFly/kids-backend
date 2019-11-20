@@ -23,7 +23,7 @@ function authMiddleware(req, res, next) {
 
 function verifyRegister(req, res, next) {
   const user = req.body;
-  !user.password || !user.email || !user.home_airport
+  !user.password || !user.email
     ? res.status(400).json({
         error: "Please include a username, password, and home airport"
       })

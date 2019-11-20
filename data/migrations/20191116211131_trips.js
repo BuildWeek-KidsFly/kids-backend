@@ -21,16 +21,16 @@ exports.up = function(knex) {
       .references("id")
       .inTable("users")
       .notNullable()
-      .onUpdate("CASCADE")
-      .onDelete("CASCADE");
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
     trips
       .integer("connection_id", 255)
       .unsigned()
       .references("id")
       .inTable("connections")
       .notNullable()
-      .onUpdate("CASCADE")
-      .onDelete("CASCADE");
+      .onDelete("CASCADE")
+      .onUpdate("CASCADE");
   });
 };
 

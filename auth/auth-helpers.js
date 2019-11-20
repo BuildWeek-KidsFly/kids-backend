@@ -1,7 +1,9 @@
 const jwt = require("jsonwebtoken");
+const db = require("../data/dbconfig");
 
 module.exports = {
-  getJwtToken
+  getJwtToken,
+  checkExisting
 };
 
 function getJwtToken(id) {
@@ -14,4 +16,12 @@ function getJwtToken(id) {
   };
 
   return jwt.sign(payload, secret, options);
+}
+
+function checkExisting(req, res, next) {
+  const findEmail = email => {
+    return db("users")
+      .where({ email })
+      .first();
+  };
 }
