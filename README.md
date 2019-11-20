@@ -1,5 +1,7 @@
 # KidsFly Backend
 
+[Heroku App](https://kidsfly-be-dakotah.herokuapp.com/)
+
 ## Authentication Endpoints:
 
 **Connections and users have different endpoints for login and signup, however require and return the same information upon successful logins/registers. See connections endpoints below.**
@@ -43,7 +45,7 @@
 
 ## (connections) **POST** /api/auth/connections/register
 
-# User/trip information (protected) endpoints:
+# User/trip (protected) endpoints:
 
 ## **GET** /api/users/
 
@@ -54,6 +56,10 @@
     {
         "authorization": eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTc0MTA2MjAxLCJleHAiOjE1NzQxOTI2MDF9.2e86pVoODyESq7hq-rQgBmh04ms64fdcbuK5PJxQ2ms
     }
+
+## **GET** /api/users/:id
+
+#### Gets user information based on id
 
 ## **PUT** /api/users/:id
 
@@ -79,7 +85,8 @@
             "number_of_items": 5,
             "number_of_children": 14,
             "special": "I want you to be dressed only in Gucci when I arrive"
-        }
+        },
+        {...},{...},{...}
     ]
 
 ## **POST** /api/users/:id/trips
@@ -129,14 +136,60 @@
         "updated": true
     }
 
-# Connections information (protected) endpoints:
+# Connections (protected) endpoints:
+
+**The following endpoints will require authorization headers.**
 
 ## **GET** /api/connections
 
-#### Gets all KidsFlyConnections registered in the database
+**Gets list of all connections. You probably don't need this, but it's here anyway if you find a reason to use it. **
 
 #### Expects headers:
 
     {
         "authorization": eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MywiaWF0IjoxNTc0MTA2MjAxLCJleHAiOjE1NzQxOTI2MDF9.2e86pVoODyESq7hq-rQgBmh04ms64fdcbuK5PJxQ2ms
     }
+
+#### Returns:
+
+    [
+        {
+            "id": 1,
+            "email": "connection@connection.com",
+            "home_airport": "LAX"
+        },
+        {...},{...},{...}
+    ]
+
+## **GET** /api/connections/:id/
+
+**Gets single connection based on id**
+
+#### Returns:
+
+    {
+    "id": 1,
+    "email": "connection@connection.com",
+    "home_airport": "LAX"
+    }
+
+## **GET** /api/connections/:id/trips
+
+**Gets list of this connection's trips, based on id of the connection**
+
+#### Returns:
+
+    [
+        {
+            "id": 3,
+            "airport_name": "world meme airport",
+            "airline": "Southwest Airlines",
+            "flight_number": "9999",
+            "departure_time": "12:15pm",
+            "number_of_items": 2,
+            "number_of_children": 0,
+            "special": "have 12 big ol doinks ready for me",
+            "completed": 0
+        },
+        {...},{...},{...}
+    ]
