@@ -15,6 +15,7 @@ async function addConnection(connection) {
 
 function getConnectionById(id) {
   return db("connections")
+    .select("id", "email", "home_airport")
     .where({ id })
     .first();
 }
