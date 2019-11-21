@@ -1,11 +1,14 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { authMiddleware } = require("../../auth/authenticate-middleware");
+const {
+  authMiddleware,
+  checkRole
+} = require("../../auth/authenticate-middleware");
 
 const Users = require("./users-model");
 
-router.get("/", authMiddleware, (req, res) => {
+router.get("/", authMiddleware, checkRole, (req, res) => {
   Users.getUsers()
     .then(users => res.status(200).json(users))
     .catch(error => res.status(500).json({ error: "internal server error" }));
@@ -15,6 +18,15 @@ router.get("/:id", authMiddleware, (req, res) => {
   const { id } = req.params;
   Users.getUserById(id)
     .then(user => res.status(200).json(user))
+    .catch(error => res.status(500).json({ error: "internal server error" }));
+});
+
+router.delete("/:id", authMiddleware, checkRole, (req, res) => {
+  const { id } = req.params;
+  Users.removeUser(id)
+    .then(removed =>
+      res.status(200).json({ message: `user with id of ${id} deleted` })
+    )
     .catch(error => res.status(500).json({ error: "internal server error" }));
 });
 

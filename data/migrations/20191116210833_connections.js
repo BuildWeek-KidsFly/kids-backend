@@ -7,6 +7,7 @@ exports.up = function(knex) {
       .notNullable()
       .unique();
     connections.string("password", 128).notNullable();
+    connections.string("role", 20).defaultTo("connection");
     connections.string("home_airport", 4);
   });
 };

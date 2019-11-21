@@ -6,9 +6,10 @@ module.exports = {
   checkExisting
 };
 
-function getJwtToken(id) {
+function getJwtToken(id, role) {
   const payload = {
-    id
+    id,
+    role
   };
   const secret = process.env.JWT_SECRET || "rapper viper";
   const options = {

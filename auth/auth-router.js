@@ -24,8 +24,8 @@ router.post("/register", checkExisting, verifyRegister, (req, res) => {
 
   Users.add(user)
     .then(user => {
-      const { id, email } = user;
-      res.status(200).json({ id, email });
+      const { id, email, role } = user;
+      res.status(200).json({ id, email, role });
     })
     .catch(error =>
       res.status(500).json({ error: "internal error registering user" })
@@ -39,10 +39,11 @@ router.post("/login", checkLoginCreds, (req, res) => {
     .first()
     .then(user => {
       if (user && bcrypt.compareSync(password, user.password)) {
-        const token = getJwtToken(user.id);
+        const token = getJwtToken(user.id, user.role);
         res.status(200).json({
           message: "Login successful, have a token",
           id: user.id,
+          role: user.role,
           token
         });
       } else {
@@ -59,8 +60,8 @@ router.post("/connections/register", verifyRegister, (req, res) => {
   console.log("REQ BODY", connection);
   return Connections.addConnection(connection)
     .then(connection => {
-      const { id, email, home_airport } = connection;
-      res.status(200).json({ id, email, home_airport });
+      const { id, email, home_airport, role } = connection;
+      res.status(200).json({ id, email, home_airport, role });
     })
     .catch(error => res.status(500).json({ error: "internal server error" }));
 });
