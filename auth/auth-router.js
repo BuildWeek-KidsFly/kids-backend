@@ -57,11 +57,10 @@ router.post("/connections/register", verifyRegister, (req, res) => {
   const connection = req.body;
   const hash = bcrypt.hashSync(connection.password, 12);
   connection.password = hash;
-  console.log("REQ BODY", connection);
   return Connections.addConnection(connection)
     .then(connection => {
-      const { id, email, home_airport, role } = connection;
-      res.status(200).json({ id, email, home_airport, role });
+      const { id, email } = connection;
+      res.status(200).json({ id, email });
     })
     .catch(error => res.status(500).json({ error: "internal server error" }));
 });
@@ -77,6 +76,7 @@ router.post("/connections/login", checkLoginCreds, (req, res) => {
         res.status(200).json({
           message: "Login successful, have a token",
           id: connection.id,
+          role: connection.role,
           token
         });
       } else {
