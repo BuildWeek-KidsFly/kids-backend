@@ -10,7 +10,8 @@ module.exports = {
   getTrips,
   updateTrip,
   updateUser,
-  removeTrip
+  removeTrip,
+  removeUser
 };
 
 function getUsers() {
@@ -19,6 +20,12 @@ function getUsers() {
 
 function getUsersBy(filter) {
   return db("users").where(filter);
+}
+
+function removeUser(id) {
+  return db("users")
+    .where({ id: id })
+    .del();
 }
 
 function getUserById(id) {

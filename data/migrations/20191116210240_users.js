@@ -11,6 +11,7 @@ exports.up = function(knex) {
     users.string("name", 128);
     users.string("address", 128);
     users.string("phone", 20);
+    users.string("role", 20).defaultTo("traveler");
   });
 };
 
